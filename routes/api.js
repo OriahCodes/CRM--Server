@@ -4,14 +4,14 @@ var cors = require('cors')
 
 const db = require('../model/config')
 
-// router.use(cors())
+router.use(cors())
 
 // Routes setup
 
-router.get('https://the-amazing-crm.herokuapp.com/', (req,res) => {
-    console.log("Someone has come into the server.")
-    res.send("Server is up and running smoothly")
-})
+// router.get('/', (req,res) => {
+//     console.log("Someone has come into the server.")
+//     res.send("Server is up and running smoothly")
+// })
 
 router.get('/clients', function (req, res) {
 
