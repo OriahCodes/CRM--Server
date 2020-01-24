@@ -6,7 +6,7 @@ const db = require('../model/config')
 // const AllClients = require('../../data/data.json')
 
 
-router.use(cors())
+// router.use(cors())
 
 // Routes setup
 
