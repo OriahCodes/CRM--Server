@@ -16,7 +16,7 @@ router.use(cors())
 router.get('/clients', function (req, res) {
 
     let clientsFromDB = []
-    db.collection('clients').limit(100).get()
+    db.collection('clients').limit(300).get()
         .then(clients => {
             clients.docs.forEach(doc => {
                 clientData = doc.data()
