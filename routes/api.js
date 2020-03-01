@@ -8,19 +8,20 @@ router.use(cors())
 
 // Routes setup
 
-// router.get('/', (req,res) => {
-//     console.log("Someone has come into the server.")
-//     res.send("Server is up and running smoothly")
-// })
+router.get('/', (req, res) => {
+    console.log("Someone has come into the server.")
+    res.send("Server is up and running smoothly")
+})
 
 router.get('/clients', function (req, res) {
 
     let clientsFromDB = []
-    db.collection('clients').limit(300).get()
+    db.collection('clients').get()
         .then(clients => {
             clients.docs.forEach(doc => {
                 clientData = doc.data()
-                clientsFromDB.push(clientData)
+                let isARelevantClient = checkDate(clientData.firstContact.slice(0, 10))
+                if (isARelevantClient) { clientsFromDB.push(clientData) }
             })
             console.log("got Clients from db")
             res.send(clientsFromDB)
@@ -91,7 +92,11 @@ router.get('/salesSince/:year/:month', function (req, res) {
             console.log("Got SalesSince from db")
             res.send(info)
         })
-        .catch(error => { console.log(error) })
+        .catch(error => {
+            console.log(error)
+            console.log("No such date in SalesSince from db")
+            res.send({ clients: 0, name: month, sales: 0, year: year })
+        })
 })
 
 // router.get('/salesSince', function (req,res) {
@@ -123,6 +128,15 @@ router.get('/salesSince/:year/:month', function (req, res) {
 //       }
 //     return monthsArray
 // }
+
+function checkDate(date) {
+    let now = new Date()
+    let contactDate = new Date(date)
+    if (contactDate < now) {
+        return true
+    }
+    return false
+}
 
 
 module.exports = router

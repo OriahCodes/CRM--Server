@@ -19,11 +19,11 @@ const jsonToFirestore = (client) => {
     })
 }
 
-data.forEach(client => {
-    setTimeout(() => {
-        jsonToFirestore(client)
-    }, 100);
-})
+// data.forEach(client => {
+//     setTimeout(() => {
+//         jsonToFirestore(client)
+//     }, 100);
+// })
 
 // ANALYTICS
 const salesByCategory = function(category, salesByCategoryArray){
@@ -72,11 +72,11 @@ const salesByCategory = function(category, salesByCategoryArray){
 
 const analyticsToFb = () => {
     //salesByCategory
-    const categories = ["month"] //"country", "owner" ,"emailType" , 
+    const categories = ["month", "country", "owner" ,"emailType"] 
     categories.forEach( async(category) => {
-        let salesByCategoryArray = await analytics.salesByCategory(data, category)
+        let salesByCategoryArray = analytics.salesByCategory(data, category)
         salesByCategory(category, salesByCategoryArray)
     })
 }
 
-// analyticsToFb()
+analyticsToFb()
